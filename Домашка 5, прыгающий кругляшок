@@ -1,0 +1,70 @@
+
+//  ViewController.swift
+//  UI
+//
+//  Created by Иван Иванов on 18.04.22.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    var movedView: UIView = UIView() //  создал проект квадрата
+    var movedButton: UIButton = UIButton() // создал проект кнопки
+    var movedView1: UIView = UIView()
+    var movedButton1: UIButton = UIButton()
+          override func viewDidLoad() {
+            super.viewDidLoad()
+          }
+     
+
+      override func viewWillAppear(_ animated: Bool) {
+          super.viewWillAppear(animated)
+           movedView.frame = CGRect(x: Int.random(in:0...500), y: Int.random(in:0...500), width: 150, height: 150) // определил координаты и размер квадрата
+        
+          movedView1.backgroundColor = .green
+
+           movedView.layer.cornerRadius = 75 // сделал круг
+           movedView.clipsToBounds = true
+          movedView1.layer.cornerRadius = 75 // сделал круг
+          movedView1.clipsToBounds = true
+          
+           movedButton.frame = movedView.bounds  // определил координаты и размер кнопки, такие же как и у квадрата
+        
+           movedView.backgroundColor = .green // покрасил квадрат
+          movedView1.backgroundColor = .green
+           self.view.addSubview(movedView) // прорисовываю квадрат на экране
+           movedView.addSubview(movedButton)  // в прорисованный квадрат  добавил кнопку
+       
+          movedButton.setTitleColor(.black, for: .normal)
+          movedButton.setTitle("title", for: .normal)
+
+
+           movedButton.addTarget(self, action: #selector(removeView), for: .touchUpInside)
+          movedButton1.addTarget(self, action: #selector(removeView1), for: .touchUpInside)
+    
+        
+        
+      }
+      override func viewDidAppear(_ animated: Bool) {
+          super.viewDidAppear(animated)
+          self.view.addSubview(movedView)
+          
+          
+      }
+      
+    @objc func removeView() {
+    movedView.removeFromSuperview()
+    
+    movedView1.frame = CGRect(x: Int.random(in:0...300), y: Int.random(in:0...500), width: 150, height: 150)
+    self.view.addSubview(movedView1)
+    movedButton1.frame = movedView1.bounds
+    movedButton1.setTitleColor(.black, for: .normal)
+    movedButton1.setTitle("title", for: .normal)
+    movedView1.addSubview(movedButton1)
+    }
+    @objc func removeView1() {
+    movedView1.removeFromSuperview()
+    self.view.addSubview(movedView)
+    movedView.addSubview(movedButton)
+    }
+}
